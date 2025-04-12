@@ -1,4 +1,3 @@
-swift
 import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
@@ -18,13 +17,6 @@ class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
         return AppCheckDebugProvider(app: app)
     }
 }
-
 protocol AppCheckProviderFactoryCreatable: AppCheckProviderFactory {}
-
 extension AppCheckProviderFactoryCreatable { }
-
-class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
-    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
-        return AppCheckDebugProvider(app: app)
-    }
-}
+extension AppCheckProviderFactoryCreatable { }
