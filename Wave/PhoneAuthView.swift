@@ -97,7 +97,7 @@ struct PhoneAuthView: View {
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(10)
-                            .onChange(of: phoneNumber) { newValue in
+                            .onChange(of: phoneNumber) {
                                 autoDetectCountryCode()
                             }
 
