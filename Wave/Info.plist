@@ -8,17 +8,6 @@
     <string></string>
     <key>UIBackgroundModes</key>
     <array/>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>app-1-623117050030-ios-2d44639004c98bac96cd3f</string>
-            </array>
-        </dict>
-    </array>
 </dict>
 </plist>
 
