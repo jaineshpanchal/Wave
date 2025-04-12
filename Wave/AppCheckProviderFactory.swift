@@ -12,8 +12,8 @@ class AppCheckProviderFactory: NSObject, AppCheckProviderFactory {
     }
 }
 
-class DebugAppCheckProviderFactory: AppCheckProviderFactory {
-    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    override func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         return AppCheckDebugProvider(app: app)
     }
 }
