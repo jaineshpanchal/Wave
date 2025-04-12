@@ -3,20 +3,25 @@ import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
 
-class AppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+class AppCheckProviderFactory: NSObject, AppCheckProviderFactoryCreatable {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         if #available(iOS 14.0, *) {
-            if DCDevice.current.isSupported {
-                return AppAttestProvider(app: app)
-            } else {
-                return nil
-            }
+            return AppAttestProvider(app: app)
         } else {
-            return nil
+            return nil //Returning nil when iOS version is less than 14
         }
-        
     }
 }
+
+class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+        return AppCheckDebugProvider(app: app)
+    }
+}
+
+protocol AppCheckProviderFactoryCreatable: AppCheckProviderFactory {}
+
+extension AppCheckProviderFactoryCreatable { }
 
 class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
