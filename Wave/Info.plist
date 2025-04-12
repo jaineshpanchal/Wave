@@ -3,11 +3,40 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key>
-    <string></string>
+    <string>$(EXECUTABLE_NAME)</string>
+
     <key>CFBundleIdentifier</key>
-    <string></string>
+    <string>tech.jp.Wave</string>
+
+    <!-- ✅ Required for background tasks like notifications -->
     <key>UIBackgroundModes</key>
-    <array/>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+
+    <!-- ✅ Updated for your new Firebase project (REVERSED_CLIENT_ID) -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>app-1-1011815572485-ios-3b25fa5d10f2c2adb1286c</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- ✅ Required by Firebase Auth & App Check -->
+    <key>FirebaseAppDelegateProxyEnabled</key>
+    <true/>
+
+    <!-- ✅ Optional but helpful for handling deep links and phone/mail links -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>tel</string>
+        <string>mailto</string>
+    </array>
 </dict>
 </plist>
-

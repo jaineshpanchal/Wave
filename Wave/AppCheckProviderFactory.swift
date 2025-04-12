@@ -2,18 +2,16 @@ import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
 
-class AppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+import Foundation
+import FirebaseAppCheck
+import FirebaseCore
+
+class AppAttestAppCheckProviderFactory: NSObject, FirebaseAppCheck.AppCheckProviderFactory {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         if #available(iOS 14.0, *) {
             return AppAttestProvider(app: app)
         } else {
-            return nil //Returning nil when iOS version is less than 14
+            return nil
         }
-    }
-}
-
-class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
-    override func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
-        return AppCheckDebugProvider(app: app)
     }
 }
