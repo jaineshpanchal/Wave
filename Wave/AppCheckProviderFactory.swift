@@ -2,7 +2,7 @@ import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
 
-class AppCheckProviderFactory: NSObject, AppCheckProviderFactoryCreatable {
+class AppCheckProviderFactory: NSObject {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         if #available(iOS 14.0, *) {
             return AppAttestProvider(app: app)
@@ -17,6 +17,3 @@ class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
         return AppCheckDebugProvider(app: app)
     }
 }
-
-protocol AppCheckProviderFactoryCreatable: AppCheckProviderFactory {}
-extension AppCheckProviderFactoryCreatable { }
