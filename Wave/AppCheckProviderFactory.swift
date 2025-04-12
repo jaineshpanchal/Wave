@@ -1,4 +1,4 @@
-import FirebaseAppCheck
+@_implementationOnly import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
 

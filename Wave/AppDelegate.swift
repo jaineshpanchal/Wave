@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseAppCheck
+@_implementationOnly import FirebaseAppCheck
 import Firebase
 import FirebaseAuth
 
