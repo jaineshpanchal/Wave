@@ -23,14 +23,10 @@ struct PhoneAuthView: View {
     @State private var smsCode: [String] = Array(repeating: "", count: 6)
     @State private var showCodeEntry = false
     @State private var authError = ""
-    
-    class PhoneAuthUIDelegate: NSObject, AuthUIDelegate {
-        func shouldPresent(_ viewController: UIViewController) {
-            // Present the view controller here if needed
-        }
-        
-        func shouldDismiss(_ viewController: UIViewController) { }
+
+    class PhoneAuthProviderVerifier: NSObject, PhoneAuthProviderDelegate {
     }
+
 
     var body: some View {
         NavigationView {
@@ -158,7 +154,7 @@ struct PhoneAuthView: View {
 
         print("📲 Attempting to send code to: \(fullPhoneNumber)")
 
-        let verifier = PhoneAuthUIDelegate()
+        let verifier = PhoneAuthProviderVerifier()
         PhoneAuthProvider.provider().verifyPhoneNumber(fullPhoneNumber, uiDelegate: verifier) { verificationID, error in
             if let error = error {
                 self.authError = "🔥 Firebase PhoneAuth Error: \(error.localizedDescription)"
