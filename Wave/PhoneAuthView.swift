@@ -24,9 +24,6 @@ struct PhoneAuthView: View {
     @State private var showCodeEntry = false
     @State private var authError = ""
 
-    class PhoneAuthProviderVerifier: NSObject, PhoneAuthProviderDelegate {
-    }
-
 
     var body: some View {
         NavigationView {
@@ -154,8 +151,7 @@ struct PhoneAuthView: View {
 
         print("📲 Attempting to send code to: \(fullPhoneNumber)")
 
-        let verifier = PhoneAuthProviderVerifier()
-        PhoneAuthProvider.provider().verifyPhoneNumber(fullPhoneNumber, uiDelegate: verifier) { verificationID, error in
+        PhoneAuthProvider.provider().verifyPhoneNumber(fullPhoneNumber, uiDelegate: nil) { verificationID, error in
             if let error = error {
                 self.authError = "🔥 Firebase PhoneAuth Error: \(error.localizedDescription)"
                 return
