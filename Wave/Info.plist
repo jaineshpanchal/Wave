@@ -15,7 +15,7 @@
         <string>remote-notification</string>
     </array>
 
-    <!-- ✅ Updated for your new Firebase project (REVERSED_CLIENT_ID) -->
+    <!-- ✅ Required for Firebase Phone Auth & App Check -->
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
@@ -28,15 +28,19 @@
         </dict>
     </array>
 
-    <!-- ✅ Required by Firebase Auth & App Check -->
+    <!-- ✅ Firebase settings -->
     <key>FirebaseAppDelegateProxyEnabled</key>
     <true/>
 
-    <!-- ✅ Optional but helpful for handling deep links and phone/mail links -->
+    <!-- ✅ Enable tel/mail deep linking -->
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>tel</string>
         <string>mailto</string>
     </array>
+
+    <!-- ✅ Contacts Permission -->
+    <key>NSContactsUsageDescription</key>
+    <string>We use your contacts to let you start chats with your loved ones.</string>
 </dict>
 </plist>
