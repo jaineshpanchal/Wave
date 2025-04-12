@@ -2,7 +2,7 @@ import FirebaseAppCheck
 import DeviceCheck
 import FirebaseCore
 
-class AppCheckProviderFactory: NSObject {
+class AppCheckProviderFactory: NSObject, AppCheckProviderFactory {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         if #available(iOS 14.0, *) {
             return AppAttestProvider(app: app)
