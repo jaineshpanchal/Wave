@@ -12,7 +12,7 @@ class AppCheckProviderFactory: NSObject, AppCheckProviderFactory {
     }
 }
 
-class DebugAppCheckProviderFactory {
+class DebugAppCheckProviderFactory: AppCheckProviderFactory {
     func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
         return AppCheckDebugProvider(app: app)
     }
