@@ -17,6 +17,6 @@ class DebugAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
         return AppCheckDebugProvider(app: app)
     }
 }
+
 protocol AppCheckProviderFactoryCreatable: AppCheckProviderFactory {}
-extension AppCheckProviderFactoryCreatable { }
 extension AppCheckProviderFactoryCreatable { }
