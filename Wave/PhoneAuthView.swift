@@ -97,8 +97,8 @@ struct PhoneAuthView: View {
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(10)
-                            .onChange(of: phoneNumber) {
-                                autoDetectCountryCode()
+                            .onChange(of: phoneNumber) { oldNumber, newNumber in
+                                autoDetectCountryCode(newNumber: newNumber)
                             }
 
                         Button("Send me the code") {
@@ -167,12 +167,12 @@ struct PhoneAuthView: View {
         }
     }
 
-    private func autoDetectCountryCode() {
-        if phoneNumber.hasPrefix("+") {
+    private func autoDetectCountryCode(newNumber: String) {
+        if newNumber.hasPrefix("+") {
             for country in countryCodes {
-                if phoneNumber.starts(with: country.code) {
+                if newNumber.starts(with: country.code) {
                     selectedCountry = country
-                    phoneNumber = phoneNumber.replacingOccurrences(of: country.code, with: "")
+                    phoneNumber = newNumber.replacingOccurrences(of: country.code, with: "")
                     break
                 }
             }
