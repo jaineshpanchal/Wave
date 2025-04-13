@@ -1,40 +1,34 @@
 import SwiftUI
 import FirebaseAuth
 
-struct CountryCode: Identifiable, Hashable {
-    let id = UUID()
-    let emoji: String
+struct CountryCode: Identifiable, Hashable, Decodable {
+    var id: UUID { UUID() } // Computed property instead of stored
     let name: String
-    let code: String
+    let code: String        // Dial code like "+1"
+    let iso: String         // ISO country code like "US"
+    let emoji: String
 }
-
-let countryCodes: [CountryCode] = [
-    CountryCode(emoji: "🇺🇸", name: "United States", code: "+1"),
-    CountryCode(emoji: "🇮🇳", name: "India", code: "+91"),
-    CountryCode(emoji: "🇬🇧", name: "United Kingdom", code: "+44"),
-    CountryCode(emoji: "🇨🇦", name: "Canada", code: "+1"),
-    CountryCode(emoji: "🇦🇺", name: "Australia", code: "+61")
-]
 
 struct PhoneAuthView: View {
     @State private var phoneNumber = ""
+    @State private var countryCodes: [CountryCode] = []
     @State private var selectedCountry: CountryCode? = nil
     @State private var verificationID: String? = nil
     @State private var smsCode: [String] = Array(repeating: "", count: 6)
     @State private var showCodeEntry = false
     @State private var authError = ""
-
+    @State private var path: [String] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack(spacing: 24) {
                 if showCodeEntry {
                     VStack(spacing: 12) {
-                        Text("Enter your disposable code here...")
+                        Text("Enter your one time setup code here.")
                             .font(.headline)
 
                         HStack(spacing: 8) {
-                            ForEach(0..<6, id: \.self) { i in
+                            ForEach(0..<6) { i in
                                 TextField("", text: Binding(
                                     get: { smsCode.indices.contains(i) ? smsCode[i] : "" },
                                     set: { newValue in
@@ -79,28 +73,21 @@ struct PhoneAuthView: View {
                     }
                 } else {
                     VStack(spacing: 12) {
-                        Text("🙏 Thank You, for giving us a chance to serve you.")
+                        Text("Thank You, for giving us a chance to serve you.")
                             .font(.title3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
 
-                        Picker("Select Country Code", selection: $selectedCountry) {
-                            Text("Choose a country").tag(Optional<CountryCode>.none)
-                            ForEach(countryCodes) { country in
-                                Text("\(country.emoji) \(country.name) (\(country.code))").tag(Optional(country))
-                            }
+                        if let country = selectedCountry {
+                            Text("\(country.emoji) \(country.name) (\(country.code))")
+                                .font(.headline)
                         }
-                        .pickerStyle(.menu)
-                        .padding(.horizontal)
 
                         TextField("Enter your phone number here...", text: $phoneNumber)
                             .keyboardType(.phonePad)
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(10)
-                            .onChange(of: phoneNumber) { oldNumber, newNumber in
-                                autoDetectCountryCode(newNumber: newNumber)
-                            }
 
                         Button("Send me the code") {
                             sendVerificationCode()
@@ -124,12 +111,37 @@ struct PhoneAuthView: View {
             }
             .padding()
             .navigationTitle("Setup")
+            .navigationDestination(for: String.self) { value in
+                if value == "main" {
+                    ContentView()
+                }
+            }
+            .onAppear {
+                loadCountryCodes()
+            }
+        }
+    }
+
+    private func loadCountryCodes() {
+        guard let url = Bundle.main.url(forResource: "complete_country_codes", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode([CountryCode].self, from: data) else {
+            print("Failed to load or decode complete_country_codes.json")
+            return
+        }
+
+        self.countryCodes = decoded
+
+        if let region = Locale.current.region?.identifier,
+           let match = decoded.first(where: { $0.iso == region }) {
+            selectedCountry = match
+        } else {
+            print("Could not auto-detect region code")
         }
     }
 
     private func sendVerificationCode() {
         authError = ""
-
         let trimmedPhone = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !trimmedPhone.isEmpty else {
@@ -138,45 +150,34 @@ struct PhoneAuthView: View {
         }
 
         guard let country = selectedCountry else {
-            authError = "Select country code for your phone number please..."
+            authError = "Unable to auto-detect your country code."
             return
         }
 
-        let fullPhoneNumber = (country.code + trimmedPhone).trimmingCharacters(in: .whitespacesAndNewlines)
+        let fullPhoneNumber = (country.code + trimmedPhone)
 
         guard fullPhoneNumber.starts(with: "+"), fullPhoneNumber.count > 4 else {
             authError = "Invalid full phone number format."
             return
         }
 
-        print("📲 Attempting to send code to: \(fullPhoneNumber)")
+        print("Sending code to: \(fullPhoneNumber)")
 
         PhoneAuthProvider.provider().verifyPhoneNumber(fullPhoneNumber, uiDelegate: nil) { verificationID, error in
             if let error = error {
-                self.authError = "🔥 Firebase PhoneAuth Error: \(error.localizedDescription)"
+                self.authError = "Firebase PhoneAuth Error: \(error.localizedDescription)"
                 return
             }
 
             guard let verificationID = verificationID else {
-                self.authError = "❗️Firebase returned nil verificationID."
+                self.authError = "Firebase returned nil verificationID."
                 return
             }
 
             self.verificationID = verificationID
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
             self.showCodeEntry = true
-            print("✅ Code sent successfully. verificationID: \(verificationID)")
-        }
-    }
-
-    private func autoDetectCountryCode(newNumber: String) {
-        if newNumber.hasPrefix("+") {
-            for country in countryCodes {
-                if newNumber.starts(with: country.code) {
-                    selectedCountry = country
-                    phoneNumber = newNumber.replacingOccurrences(of: country.code, with: "")
-                    break
-                }
-            }
+            print("Code sent successfully. verificationID: \(verificationID)")
         }
     }
 
@@ -198,7 +199,9 @@ struct PhoneAuthView: View {
             if let error = error {
                 authError = error.localizedDescription
             } else {
-                print("✅ Logged in as: \(result?.user.phoneNumber ?? "")")
+                print("Logged in as: \(result?.user.phoneNumber ?? "")")
+                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                path.append("main")
             }
         }
     }

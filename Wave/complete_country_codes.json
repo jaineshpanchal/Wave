@@ -1,0 +1,142 @@
+[
+  {
+    "name": "United States",
+    "code": "+1",
+    "iso": "US",
+    "emoji": "🇺🇸"
+    
+  },
+  {
+    "name": "India",
+    "code": "+91",
+    "iso": "IN",
+    "emoji": "🇮🇳"
+    
+  },
+  {
+    "name": "United Kingdom",
+    "code": "+44",
+    "iso": "GB",
+    "emoji": "🇬🇧"
+    
+  },
+  {
+    "name": "Canada",
+    "code": "+1",
+    "iso": "CA",
+    "emoji": "🇨🇦"
+    
+  },
+  {
+    "name": "Australia",
+    "code": "+61",
+    "iso": "AU",
+    "emoji": "🇦🇺"
+    
+  },
+  {
+    "name": "Germany",
+    "code": "+49",
+    "iso": "DE",
+    "emoji": "🇩🇪"
+    
+  },
+  {
+    "name": "France",
+    "code": "+33",
+    "iso": "FR",
+    "emoji": "🇫🇷"
+    
+  },
+  {
+    "name": "Brazil",
+    "code": "+55",
+    "iso": "BR",
+    "emoji": "🇧🇷"
+    
+  },
+  {
+    "name": "Japan",
+    "code": "+81",
+    "iso": "JP",
+    "emoji": "🇯🇵"
+    
+  },
+  {
+    "name": "South Korea",
+    "code": "+82",
+    "iso": "KR",
+    "emoji": "🇰🇷"
+    
+  },
+  {
+    "name": "China",
+    "code": "+86",
+    "iso": "CN",
+    "emoji": "🇨🇳"
+    
+  },
+  {
+    "name": "South Africa",
+    "code": "+27",
+    "iso": "ZA",
+    "emoji": "🇿🇦"
+    
+  },
+  {
+    "name": "Mexico",
+    "code": "+52",
+    "iso": "MX",
+    "emoji": "🇲🇽"
+    
+  },
+  {
+    "name": "Italy",
+    "code": "+39",
+    "iso": "IT",
+    "emoji": "🇮🇹"
+    
+  },
+  {
+    "name": "Spain",
+    "code": "+34",
+    "iso": "ES",
+    "emoji": "🇪🇸"
+    
+  },
+  {
+    "name": "Russia",
+    "code": "+7",
+    "iso": "RU",
+    "emoji": "🇷🇺"
+    
+  },
+  {
+    "name": "Netherlands",
+    "code": "+31",
+    "iso": "NL",
+    "emoji": "🇳🇱"
+    
+  },
+  {
+    "name": "Switzerland",
+    "code": "+41",
+    "iso": "CH",
+    "emoji": "🇨🇭"
+    
+  },
+  {
+    "name": "Sweden",
+    "code": "+46",
+    "iso": "SE",
+    "emoji": "🇸🇪"
+    
+  },
+  {
+    "name": "Norway",
+    "code": "+47",
+    "iso": "NO",
+    "emoji": "🇳🇴"
+    
+  }
+]
