@@ -137,7 +137,7 @@ struct SettingsView: View {
         }
     }
 
-    private func deleteAccount(for user: User00) {
+    private func deleteAccount(for user: User) {
         let db = Firestore.firestore()
         let uid = user.uid
 
