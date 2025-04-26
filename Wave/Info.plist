@@ -2,11 +2,45 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleExecutable</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string></string>
-	<key>UIBackgroundModes</key>
-	<array/>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>tech.jp.Wave</string>
+
+    <!-- ✅ Required for background tasks like notifications -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+
+    <!-- ✅ Required for Firebase Phone Auth & App Check -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>app-1-1011815572485-ios-3b25fa5d10f2c2adb1286c</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- ✅ Firebase settings -->
+    <key>FirebaseAppDelegateProxyEnabled</key>
+    <true/>
+
+    <!-- ✅ Enable tel/mail deep linking -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>tel</string>
+        <string>mailto</string>
+    </array>
+
+    <!-- ✅ Contacts Permission -->
+    <key>NSContactsUsageDescription</key>
+    <string>We use your contacts to let you start chats with your loved ones.</string>
 </dict>
 </plist>

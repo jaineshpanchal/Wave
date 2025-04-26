@@ -17,7 +17,7 @@ struct ContentView: View {
                 TabView {
                     HomeView()
                         .tabItem {
-                            Label("Chats", systemImage: "bubble.left.and.bubble.right")
+                            Label("Bubbles", systemImage: "bubble.left.and.bubble.right")
                         }
                     ReminderView()
                         .tabItem {

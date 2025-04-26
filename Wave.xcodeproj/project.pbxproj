@@ -56,6 +56,9 @@
 			exceptions = (
 				4EA7E9BB2DAA351C00E02B53 /* Exceptions for "Wave" folder in "Wave" target */,
 			);
+			explicitFileTypes = {
+				Info.plist = text.xml;
+			};
 			path = Wave;
 			sourceTree = "<group>";
 		};

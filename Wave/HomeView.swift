@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             Text("Chat list goes here")
-                .navigationTitle("Wave")
+                .navigationTitle("Chats")
         }
     }
 }
